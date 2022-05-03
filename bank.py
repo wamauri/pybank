@@ -22,7 +22,7 @@ def menu() -> None:
 
     print("Select an option in menu:")
     print("+-----------------------+")
-    print("| 1 - Create Account |")
+    print("| 1 - Create Account    |")
     print("| 2 - Withdraw          |")
     print("| 3 - Deposit           |")
     print("| 4 - Transfer          |")
@@ -161,14 +161,14 @@ def list_accounts() -> None:
 
 
 def get_account_by_account_number(account_number: int) -> Account:
-    account: Account = None
+    acc: Account = None
 
-    if len(Account) > 0:
+    if len(accounts) > 0:
         for account in accounts:
             if account.account_number == account_number:
-                account = account
+                acc = account
 
-    return account
+    return acc
 
 
 def greeting() -> None:
