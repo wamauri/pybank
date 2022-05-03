@@ -75,7 +75,7 @@ class Account:
                 self.limit = self.limit + remaining
                 self.balance = 0
                 self.total_balance = self._calculate_total_balance
-                print("Withdrawal made successfullt.")
+            print("Withdrawal made successfullt.")
         else:
             print("Withdrawal not made. Try again.")
 
@@ -97,7 +97,7 @@ class Account:
                 desti_account.balance = desti_account.balance + value
                 total_balance: float = desti_account._calculate_total_balance
                 desti_account.total_balance = total_balance
-            print("Transfer made successfullt.")
+            print("Transfer made successfully.")
         else:
             print("Transfer not made. Try again.")
 
