@@ -1,3 +1,4 @@
+from distutils.log import debug
 from models.client import Client
 from utils.helper import format_float_to_str_currency
 
@@ -48,15 +49,55 @@ class Account:
     def total_balance(self: object) -> float:
         return self.__total_balance
 
+    @total_balance.setter
+    def total_balance(self: object, value: float) -> None:
+        self.__total_balance = value
+
     @property
     def _calculate_total_balance(self: object) -> float:
         return self.balance + self.limit
 
     def deposit(self: object, value: float) -> None:
-        pass
+        if value > 0:
+            self.balance = self.balance + value
+            self.total_balance = self._calculate_total_balance
+            print("Deposit made successfully.")
+        else:
+            print(f"Error. {value} needs to be greater than 0.")
 
     def withdraw(self: object, value: float) -> None:
-        pass
+        if value > 0 and self.total_balance >= value:
+            if self.balance >= value:
+                self.balance = self.balance - value
+                self.total_balance = self._calculate_total_balance
+            else:
+                remaining: float = self.balance - value
+                self.limit = self.limit + remaining
+                self.balance = 0
+                self.total_balance = self._calculate_total_balance
+                print("Withdrawal made successfullt.")
+        else:
+            print("Withdrawal not made. Try again.")
 
     def transfer(self: object, desti_account: object, value: float) -> None:
-        pass
+        if value > 0 and self.total_balance >= value:
+            if self.balance >= value:
+                self.balance = self.balance - value
+                self.total_balance = self._calculate_total_balance
+
+                desti_account.balance = desti_account.balance + value
+                total_balance: float = desti_account._calculate_total_balance
+                desti_account.total_balance = total_balance
+            else:
+                remaining: float = self.balance - value
+                self.limit = self.limit + remaining
+                self.balance = 0
+                self.total_balance = self._calculate_total_balance
+
+                desti_account.balance = desti_account.balance + value
+                total_balance: float = desti_account._calculate_total_balance
+                desti_account.total_balance = total_balance
+            print("Transfer made successfullt.")
+        else:
+            print("Transfer not made. Try again.")
+
